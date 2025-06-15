@@ -11,12 +11,11 @@ public class Principal {
         try (Scanner scan = new Scanner(System.in)){
             System.out.print("Insira o nome da cidade: ");
             String cidade = scan.nextLine();
-            System.out.print("Insira o código telefônico da reguião: ");
+            System.out.print("Insira o código da região: ");
             String ddd = scan.nextLine();
 
             BuscaCidade clima = new BuscaCidade();
-            clima.cidade(cidade,ddd);
-              System.out.println(clima.cidade(cidade,ddd));
+            System.out.println(clima.cidade(cidade,ddd));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -14,21 +14,26 @@ import java.nio.charset.StandardCharsets;
 public class BuscaCidade {
 
     public String cidade(String city, String ddd) throws IOException, InterruptedException {
+
         String apikey = System.getenv("OPEN_WEATHER_API");
+        String cidadeCodificada = URLEncoder.encode(city, StandardCharsets.UTF_8);
+        String url = "https://api.openweathermap.org/data/2.5/weather?q="
+                +cidadeCodificada+","+ddd+",+55&appid="+apikey+"&units=metric&lang=pt_br&mode=json";
+
         HttpClient client =  HttpClient.newBuilder().build();
         HttpRequest request = HttpRequest
                 .newBuilder()
-                .uri(URI.create("https://api.openweathermap.org/data/2.5/weather?q="
-                        + URLEncoder.encode(city, StandardCharsets.UTF_8)
-                        +","+ddd+",+55&appid="+apikey+"&units=metric&lang=pt_br&mode=json"))
+                .uri(URI.create(url))
                 .build();
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
+
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .serializeNulls()
                 .create();
         Clima clima = gson.fromJson(response.body(), Clima.class);
+
 
         String temperatua = """
                 ==============================
